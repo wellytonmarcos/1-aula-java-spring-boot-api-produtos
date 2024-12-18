@@ -11,13 +11,15 @@ import java.util.UUID;
 @RequestMapping("produtos")
 public class ProdutoController {
 
+    // Repositório
     private ProdutoRepository produtoRepository;
 
+    // Construtor
     public ProdutoController(ProdutoRepository produtoRepository){
         this.produtoRepository = produtoRepository;
     }
 
-
+    // Cadastrar
     @PostMapping
     public Produto salvar(@RequestBody Produto produto)
     {
@@ -28,24 +30,27 @@ public class ProdutoController {
         return produto;
     }
 
+    // Buscar por ID
     @GetMapping("/{id}")
     public Produto obterPorId(@PathVariable("id") String id) {
        return produtoRepository.findById(id).orElse(null);
     }
 
+    // Deletar
     @DeleteMapping("{id}")
     public void deletar(@PathVariable("id") String id)
     {
         produtoRepository.deleteById(id);
     }
 
+    // Buscar por Nome
     @GetMapping
     public List<Produto> buscar(@RequestParam("nome") String nome){
 
         return produtoRepository.findByNome(nome);
     }
 
-
+    // Atualizar
     @PutMapping("{id}")
     public Produto atualizar(@PathVariable("id") String id, @RequestBody Produto produto)
     {
